@@ -1,0 +1,1 @@
+export const FILMS_LOAD_SUCCESS = 'FILMS_LOAD_SUCCESS';
