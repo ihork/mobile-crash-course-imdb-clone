@@ -1,26 +1,33 @@
 import React, {Component, PropTypes} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, ListView} from 'react-native';
 import { connect } from 'react-redux';
 import stylesheet from './stylesheet';
 import {getFilmsData} from '../../store/films/actions';
 import * as selectors from '../../store/selectors';
+import FilmItem from '../../components/FilmItem';
+
+const ds = new ListView.DataSource({
+    rowHasChanged: (r1, r2) => r1 !== r2
+});
 
 class FilmList extends Component {
     componentDidMount() {
         this.props.dispatch(getFilmsData());
     }
-    render() {console.log('FILMS', this.props.films);
+    render() {
         return (
-            <View>
-                <Text>FilmList {JSON.stringify(this.props.films)}</Text>
-            </View>
+            <ListView
+                style={stylesheet.container}
+                dataSource={ds.cloneWithRows(this.props.filmList)}
+                renderRow={(item) => <FilmItem film={item}/>}
+            />
         )
     }
 }
 
 function mapStateToProps(state) {
     return {
-        films: selectors.getFilms(state)
+        filmList: selectors.getFilmList(state)
     };
 }
 
