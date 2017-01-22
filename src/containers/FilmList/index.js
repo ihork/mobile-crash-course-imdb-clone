@@ -14,12 +14,18 @@ class FilmList extends Component {
     componentDidMount() {
         this.props.dispatch(getFilmsData());
     }
+
     render() {
         return (
             <ListView
                 style={stylesheet.container}
                 dataSource={ds.cloneWithRows(this.props.filmList)}
-                renderRow={(item) => <FilmItem film={item}/>}
+                renderRow={(item) =>
+                    <FilmItem
+                        film={item}
+                        navigator={this.props.navigator}
+                    />
+                }
             />
         )
     }
