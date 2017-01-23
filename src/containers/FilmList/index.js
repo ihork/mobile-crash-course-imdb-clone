@@ -5,6 +5,7 @@ import stylesheet from './stylesheet';
 import {getFilmsData} from '../../store/films/actions';
 import * as selectors from '../../store/selectors';
 import FilmItem from '../../components/FilmItem';
+import _ from 'lodash';
 
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
@@ -14,6 +15,7 @@ class FilmList extends Component {
     constructor(props) {
         super(props);
         this.getFilmListNextPage = this.getFilmListNextPage.bind(this);
+        this.makeSearch = _.debounce(this.makeSearch.bind(this), 500, {leading: true});
     }
 
     componentDidMount() {
@@ -28,12 +30,16 @@ class FilmList extends Component {
         this.props.dispatch(getFilmsData(this.props.searchQuery));
     }
 
+    makeSearch(query) {
+        this.props.dispatch(getFilmsData(query));
+    }
+
     render() {
         return (
             <View style={stylesheet.container}>
                 <TextInput
                     style={stylesheet.searchBar}
-                    onChangeText={(query) => this.props.dispatch(getFilmsData(query))}
+                    onChangeText={(query) => this.makeSearch(query)}
                 />
                 <ListView
                     dataSource={ds.cloneWithRows(this.props.filmList)}
