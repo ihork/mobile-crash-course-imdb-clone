@@ -11,10 +11,10 @@ class FilmsDbService {
             if (query) {
                 url += `&query=${query}`;
             }
-            console.log(url);
+
             const response = await fetch(url);
             const json = await response.json();
-console.log(json.results);
+
             return json;
         } catch (error) {
 
