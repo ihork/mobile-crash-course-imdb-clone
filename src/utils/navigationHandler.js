@@ -1,9 +1,8 @@
-export function openFilmDetails(navigator, film) {
-    console.log('log');
+export function openFilmDetails(navigator, filmId) {
     navigator.push({
         screen: 'com.example.FilmDetails',
         passProps: {
-            film
+            filmId
         }
     })
 }

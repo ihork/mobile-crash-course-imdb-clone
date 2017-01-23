@@ -29,3 +29,7 @@ export function getNextPage(state) {
 export function getSearchQuery(state) {
     return state.films.searchQuery;
 }
+
+export function getFilmById(state, id) {
+    return state.films.filmById[id];
+}

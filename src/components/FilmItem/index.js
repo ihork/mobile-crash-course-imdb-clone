@@ -1,29 +1,25 @@
 import React, {Component, PropTypes} from 'react';
 import {View, Text, Image, TouchableHighlight} from 'react-native';
 import stylesheet from './stylesheet';
-import filmsDbService from '../../services/FilmsDbService';
-import * as navigationHandler from '../../utils/navigationHandler';
 
 export default class FilmItem extends Component {
     static propTypes = {
         film: PropTypes.object.isRequired,
-        navigator: PropTypes.object.isRequired
+        filmImageUrl: PropTypes.string,
+        onPress: PropTypes.func.isRequired
     };
 
     render() {
-        const {film, navigator} = this.props;
-        const imageUrl = filmsDbService.getImageUrl(film.poster_path);
+        const {film, onPress, filmImageUrl} = this.props;
         return (
             <TouchableHighlight
                 underlayColor={ 'transparent' }
-                onPress={() => {
-                    navigationHandler.openFilmDetails(navigator, film)
-                }}
+                onPress={() => {onPress(film.id)}}
             >
                 <View style={stylesheet.filmItem}>
                     <Image
                         style={stylesheet.image}
-                        source={{uri: imageUrl}}
+                        source={{uri: filmImageUrl}}
                     />
                     <View style={stylesheet.details}>
                         <View style={stylesheet.header}>

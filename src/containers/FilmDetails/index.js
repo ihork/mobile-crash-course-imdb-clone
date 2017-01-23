@@ -3,15 +3,17 @@ import {View, Text, Image} from 'react-native';
 import stylesheet from './stylesheet';
 import filmsDbService from '../../services/FilmsDbService';
 import { connect } from 'react-redux';
+import * as selectors from '../../store/selectors';
 
 class FilmDetails extends Component {
     static propTypes = {
+        filmId: PropTypes.number.isRequired,
         film: PropTypes.object.isRequired
     };
 
     render() {
         const {film} = this.props;
-        const imageUrl = filmsDbService.getImageUrl(film.poster_path);console.log('Film', film);
+        const imageUrl = filmsDbService.getImageUrl(film.poster_path);
         return (
             <View style={stylesheet.filmItem}>
                 <Text style={stylesheet.title}>{film.title}</Text>
@@ -36,9 +38,9 @@ class FilmDetails extends Component {
 }
 
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
     return {
-        //film: selectors.getFilmList(state)
+        film: selectors.getFilmById(state, props.filmId)
     };
 }
 
