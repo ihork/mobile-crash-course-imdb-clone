@@ -13,3 +13,11 @@ export function getFilmList(state) {
         return getFilmMap(state)[id];
     });
 }
+
+export function areFilmsLoading(state) {
+    return state.films.filmsAreLoading;
+}
+
+export function getNextPage(state) {
+    return state.films.currentPage + 1;
+}

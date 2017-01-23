@@ -4,9 +4,9 @@ const API_KEY = '8f0e871b28e400378a4c28cb69d27d7d';
 const FILMS_STORAGE = 'discover/movie';
 
 class FilmsDbService {
-    async getFilmsData() {
+    async getFilmsData(page = 1) {
         try {
-            const response = await fetch(`${BASE_URL}${FILMS_STORAGE}?api_key=${API_KEY}&sort_by=popularity.desc`);
+            const response = await fetch(`${BASE_URL}${FILMS_STORAGE}?api_key=${API_KEY}&sort_by=popularity.desc&page=${page}`);
             const json = await response.json();
 
             return json;
