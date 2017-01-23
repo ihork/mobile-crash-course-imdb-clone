@@ -20,15 +20,18 @@ export default class FilmItem extends Component {
                     navigationHandler.openFilmDetails(navigator, film)
                 }}
             >
-                <View
-                    style={stylesheet.filmItem}
-                >
+                <View style={stylesheet.filmItem}>
                     <Image
                         style={stylesheet.image}
                         source={{uri: imageUrl}}
                     />
-                    <Text style={stylesheet.title}>{film.title}</Text>
-                    <Text style={stylesheet.year}>{` (${film.release_date.split('-')[0]}) `}</Text>
+                    <View style={stylesheet.details}>
+                        <View style={stylesheet.header}>
+                            <Text style={stylesheet.title}>{film.title}</Text>
+                            <Text style={stylesheet.year}>{` (${film.release_date.split('-')[0]}) `}</Text>
+                        </View>
+                        <Text style={stylesheet.overview}>{film.overview}</Text>
+                    </View>
                 </View>
             </TouchableHighlight>
         );

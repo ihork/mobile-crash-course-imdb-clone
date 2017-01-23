@@ -9,6 +9,18 @@ export default StyleSheet.create({
         marginTop: 5,
         marginBottom: 5
     },
+    details: {
+        flexDirection: 'column'
+    },
+    header: {
+        flexDirection: 'row'
+    },
+    overview: {
+        fontSize: 11,
+        color: '#333',
+        maxWidth: 260,
+        marginTop: 5
+    },
     title: {
         fontSize: 15,
         maxWidth: 200,
