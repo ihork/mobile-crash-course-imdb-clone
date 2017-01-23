@@ -15,13 +15,17 @@ export default function reduce(state = initialState, action = {}) {
         case types.FILMS_LOAD_SUCCESS:
             return state.merge({
                 filmById: extendFilmMapWithItems(state.filmById, action.items),
-                filmIdList: fillFilmIdList(state.filmIdList, action.items),
+                filmIdList: fillFilmIdList(state.filmIdList, action.items, action.page),
                 currentPage: action.page,
                 filmsAreLoading: false
             });
         case types.FILMS_ARE_LOADING:
             return state.merge({
                 filmsAreLoading: true
+            });
+        case types.SEARCH_QUERY:
+            return state.merge({
+                searchQuery: action.query
             });
         default: return state;
     }
@@ -38,8 +42,8 @@ function extendFilmMapWithItems(filmsMap = {}, newItems = []) {
     return newFilmsMap;
 }
 
-function fillFilmIdList(filmIdList = [], newItems = []) {
-    const newFilmIdList = [...filmIdList];
+function fillFilmIdList(filmIdList = [], newItems = [], page) {
+    const newFilmIdList = page === 1 ? []: [...filmIdList];
 
     _.forEach(newItems, (item) => {
         const id = item.id;

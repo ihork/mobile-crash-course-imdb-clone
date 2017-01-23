@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {View, Text, ListView, ActivityIndicator} from 'react-native';
+import {View, Text, ListView, ActivityIndicator, TextInput} from 'react-native';
 import { connect } from 'react-redux';
 import stylesheet from './stylesheet';
 import {getFilmsData} from '../../store/films/actions';
@@ -25,12 +25,16 @@ class FilmList extends Component {
             return;
         }
 
-        this.props.dispatch(getFilmsData());
+        this.props.dispatch(getFilmsData(this.props.searchQuery));
     }
 
     render() {
         return (
             <View style={stylesheet.container}>
+                <TextInput
+                    style={stylesheet.searchBar}
+                    onChangeText={(query) => this.props.dispatch(getFilmsData(query))}
+                />
                 <ListView
                     dataSource={ds.cloneWithRows(this.props.filmList)}
                     renderRow={(item) =>
@@ -43,7 +47,7 @@ class FilmList extends Component {
                     onEndReachedThreshold={10}
                 />
                 {
-                    this.props.filmsAreLoading
+                    this.props.filmsAreLoading && this.props.currentPage
                     ? <ActivityIndicator size="large"></ActivityIndicator>
                     : null
                 }
@@ -55,7 +59,9 @@ class FilmList extends Component {
 function mapStateToProps(state) {
     return {
         filmList: selectors.getFilmList(state),
-        filmsAreLoading: selectors.areFilmsLoading(state)
+        filmsAreLoading: selectors.areFilmsLoading(state),
+        currentPage: selectors.getCurrentPage(state),
+        searchQuery: selectors.getSearchQuery(state)
     };
 }
 

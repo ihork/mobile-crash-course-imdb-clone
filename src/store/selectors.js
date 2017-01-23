@@ -18,6 +18,14 @@ export function areFilmsLoading(state) {
     return state.films.filmsAreLoading;
 }
 
+export function getCurrentPage(state) {
+    return state.films.currentPage;
+}
+
 export function getNextPage(state) {
     return state.films.currentPage + 1;
+}
+
+export function getSearchQuery(state) {
+    return state.films.searchQuery;
 }
