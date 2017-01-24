@@ -38,7 +38,7 @@
     },
     "ios-simulator.debug": {
       "app": "ios/build/Build/Products/Debug-iphonesimulator/template.app",
-      "device": "iPhone 7, iOS 10.1"
+      "device": "iPhone 7"
     }
   },
   "jest": {
