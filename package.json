@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "e2e": "mocha e2e --opts ./e2e/mocha.opts --scheme=ios-simulator.debug",
+    "detox-server": "detox-server"
   },
   "dependencies": {
     "lodash": "^4.17.4",
@@ -25,7 +27,19 @@
     "babel-preset-react": "^6.1.18",
     "jest": "18.1.0",
     "jest-react-native": "18.0.0",
-    "react-test-renderer": "15.4.1"
+    "react-test-renderer": "15.4.1",
+    "detox": "^4.1.4",
+    "detox-server": "^1.1.0"
+  },
+  "detox": {
+    "session": {
+      "server": "ws://localhost:8099",
+      "sessionId": "imdb-clone"
+    },
+    "ios-simulator.debug": {
+      "app": "ios/build/Build/Products/Debug-iphonesimulator/template.app",
+      "device": "iPhone 7, iOS 10.1"
+    }
   },
   "jest": {
     "preset": "react-native"
