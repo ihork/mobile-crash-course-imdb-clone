@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {View, Text, ListView, ActivityIndicator, TextInput} from 'react-native';
+import {View, Text, ListView, ActivityIndicator, TextInput, Alert} from 'react-native';
 import { connect } from 'react-redux';
 import stylesheet from './stylesheet';
 import {getFilmsData} from '../../store/films/actions';
@@ -45,13 +45,18 @@ class FilmList extends Component {
                     onChangeText={this.makeSearch}
                 />
                 <ListView
+                    testID="ListView"
                     dataSource={ds.cloneWithRows(this.props.filmList)}
-                    renderRow={(item) =>
-                        <FilmItem
-                            film={item}
-                            filmImageUrl={filmsDbService.getImageUrl(item.poster_path)}
-                            onPress={this.onItemPress}
-                        />
+                    renderRow={(item, sectionID, rowID, highlightRow) => {
+                        return (
+                            <FilmItem
+                                testID={`FilmItem-${rowID}`}
+                                film={item}
+                                filmImageUrl={filmsDbService.getImageUrl(item.poster_path)}
+                                onPress={this.onItemPress}
+                            />
+                            )
+                        }
                     }
                     onEndReached={this.getFilmListNextPage}
                     onEndReachedThreshold={10}

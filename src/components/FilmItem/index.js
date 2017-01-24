@@ -10,13 +10,14 @@ export default class FilmItem extends Component {
     };
 
     render() {
-        const {film, onPress, filmImageUrl} = this.props;
+        const {film, onPress, filmImageUrl, testID} = this.props;
         return (
             <TouchableHighlight
                 underlayColor={ 'transparent' }
                 onPress={() => {onPress(film.id)}}
             >
-                <View style={stylesheet.filmItem}>
+                <View style={stylesheet.filmItem}
+                      testID={testID}>
                     <Image
                         style={stylesheet.image}
                         source={{uri: filmImageUrl}}
